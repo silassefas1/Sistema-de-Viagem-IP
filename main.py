@@ -41,6 +41,8 @@ def mainVeiculo():
         elif opcaomenu == 6:
             listarVeicSMotorista()
         elif opcaomenu == 7:
+            removerVeiculo()
+        elif opcaomenu == 8:
             break
         else:
             print("Opção incorreta. Digite Novamente")

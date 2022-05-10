@@ -29,8 +29,8 @@ def menuVeiculo():
     print('[4] - Remover Motorista do Veículo')
     print('[5] - Listar Veículos com Motoristas')
     print('[6] - Listar Veículos sem Motoristas')
-    print('[8] - Remover Veículo')
-    print('[7] - SAIR')
+    print('[7] - Remover Veículo')
+    print('[8] - SAIR')
     opcao = int(input("Digite uma opção: "))
     return opcao
 

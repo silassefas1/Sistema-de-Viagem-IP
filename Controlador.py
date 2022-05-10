@@ -16,9 +16,9 @@ def checagem(item, codigo=0):  # 0 é motorista, 1 é veículo. Função de chec
 
 def continuar():  #Função para a opção de continuar
     while True:
-        opcao = str(input("Deseja continuar [S/N]? ")).upper()
+        opcao = str(input("Deseja continuar [S/N]? ")).strip().upper()
         while opcao not in "SN":
-            opcao = str(input("Opção incorreta. Digite somente s - Sim ou n - Não: ")).upper()
+            opcao = str(input("Opção incorreta. Digite somente s - Sim ou n - Não: ")).strip().upper()
         print()
         if opcao == "S":
             return True  # se a opcao for S, ele retorna True
@@ -43,10 +43,9 @@ def cadastro_Motorista():
             return
 
 
-print()
 
 # ========================================= Veículo ===================================================================
-banco_Veiculo = {'2HBR220': {'placa': "2HBR220", 'tipo': "Carro", "motorista": 'joão'},
+banco_Veiculo = {'2HBR220': {'placa': "2HBR220", 'tipo': "Carro", "motorista": 'João'},
                  "2HBTR78": {'placa': "2HBTR78", "tipo": "Moto", "motorista": None}}
 
 
@@ -124,24 +123,30 @@ def addMotoristaVeic():
                 else:
                     break
             nome = str(input("Digite o nome do motorista que você deseja adicionar ao veículo: ")).title()
+            nMotorista = False
             for veiculo in banco_Veiculo.values():
                 if veiculo.get("placa") == placa and nome == veiculo.get("motorista"):
                     print(f"O motorista {nome} já está vinculado a este veículo.\n")
-                    break
-            # Depois # verificar se a carteira dele é correspondente ao veículo. A - Carro, B - Moto, A/B Carro e Moto
-            for cpf in banco_Motorista.values():
-                if nome == cpf.get("nome"):
-                    for veiculo in banco_Veiculo.values():
-                        if placa == veiculo.get("placa"):
-                            veiculo["motorista"] = nome
+                    nMotorista = True
+            if not nMotorista:
+                # Depois # verificar se a carteira dele é correspondente ao veículo. A - Carro, B - Moto, A/B Carro e Moto
+                nMotorista = False
+                for cpf in banco_Motorista.values():
+                    if nome == cpf.get("nome"):
+                        for veiculo in banco_Veiculo.values():
+                            if placa == veiculo.get("placa"):
+                                veiculo["motorista"] = nome
+                                nMotorista = True
+                if nMotorista:
                     print("Motorista vinculado ao veículo com sucesso!\n")
-                    if not continuar():
-                        break
-                    addMotoristaVeic()
+                else:
+                    print("Esse motorista não existe.")
+                if not continuar():
+                    return
+            else:
+                if not continuar():
+                    return
             # verificar se a carteira dele é correspondente ao veículo. A - Carro, B - Moto, A/B Carro e Moto
-            print("Esse motorista não existe.")
-            if not continuar():
-                return
 
 
 def removerMotoristaVeic():
@@ -159,7 +164,10 @@ def removerMotoristaVeic():
                     nMotoristas += 1
             if nMotoristas == 0:
                 print(f"O motorista {nome} não está vinculado a nenhum veículo ou não existe.\n")
-                return
+                if not continuar():
+                    return
+                else:
+                    return removerMotoristaVeic()
             else:
                 print(f"=-=-=-Veículo(s) de {nome}-=-=-=")
                 print(f'{" " * 7}{"Placa":<12}{"Tipo":8}')
@@ -182,11 +190,9 @@ def removerMotoristaVeic():
                                     veiculo["motorista"] = None
                                     print("Motorista desvinculado com sucesso!\n")
                                     return
-                        else:
-                            print("Este veículo não existe. Tente novamente")
-                        if not continuar():
-                            return
-                        removerMotoristaVeic()
+                    print("Este veículo não existe. Tente novamente")
+                    if not continuar():
+                        return
 
 
 def listarVeicCMotorista():
@@ -217,7 +223,7 @@ def listarVeicSMotorista():
         return
     nMotoristas = 0
     for veiculo in banco_Veiculo.values():
-        if veiculo.get("motorista") is not None:
+        if veiculo.get("motorista") is None:
             nMotoristas += 1
     if nMotoristas == 0:
         print("Não existe motorista vinculado ao veículo.\n")
@@ -230,3 +236,37 @@ def listarVeicSMotorista():
                 print(f'{" " * 9}{veiculo.get("placa"):<12}{veiculo.get("tipo"):8}')
         print('=-' * 17)
         print()
+
+
+def removerVeiculo():
+    print("=-=-=-Remover Veículo-=-=-=")
+    if len(banco_Veiculo) == 0:
+        print("Ainda não existe nenhum veículo cadastrado.\n")
+        return
+    else:
+        placa = str(input("Digite a placa do veículo que deseja remover do cadastro: ")).strip().upper()
+        cadastrado = False
+        for veiculo in banco_Veiculo:
+            if placa == veiculo:
+                cadastrado = True
+        if cadastrado:
+            for veiculo in banco_Veiculo.values():
+                if placa == veiculo["placa"]:
+                    print(f'{"Placa":<12}{"Tipo":8}{"Motorista"}')
+                    print(f'{veiculo.get("placa"):<12}{veiculo.get("tipo"):8}{veiculo.get("motorista")}')
+                    opcao = str(input("Você tem certeza [S/N]? ")).strip().upper()
+                    while opcao not in "SN":
+                        opcao = str(input("Opção incorreta. Digite somente s - Sim ou n - Não: ")).strip().upper()
+                    print()
+                    if opcao == "N":
+                        return
+                    else:
+                        del banco_Veiculo[placa]
+                        print("Veículo removido com sucesso!")
+                        return
+        else:
+            print("Este veículo ainda não está cadastrado.")
+            if not continuar():
+                return
+            else:
+                return removerVeiculo()
