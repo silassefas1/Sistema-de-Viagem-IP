@@ -33,13 +33,13 @@ def mainVeiculo():
         elif opcaomenu == 2:
             buscarVeiculo()
         elif opcaomenu == 3:
-            addMotorista()
+            addMotoristaVeic()
         elif opcaomenu == 4:
-            pass
+            removerMotoristaVeic()
         elif opcaomenu == 5:
-            pass
+            listarVeicCMotorista()
         elif opcaomenu == 6:
-            pass
+            listarVeicSMotorista()
         elif opcaomenu == 7:
             break
         else:
