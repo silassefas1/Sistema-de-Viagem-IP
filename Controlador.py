@@ -26,7 +26,6 @@ def continuar():  #Função para a opção de continuar
 
 
 # =================================================== Motorista =====================================================
-
 banco_Motorista={}
 
 
@@ -44,22 +43,31 @@ def cadastro_Motorista():
     return dic_Motorista
 
 
-cadastro_Motorista()
 print()
 
 # ========================================= Veículo ===================================================================
-banco_Veiculo = {}
+banco_Veiculo = {'2HBR220': {'placa': "2HBR220", 'tipo': "Carro"},
+                 "2HBTR78": {'placa': "2HBTR78", "tipo": "Moto"}}
 
 
 def cadastrarVeiculo():
     while True:
         print(f'{"Cadastro de Veículos":^40}')
         print('-=' * 20)
-        placa = int(input("Insira a placa do seu veículo: "))
+        placa = str(input("Insira a placa do seu veículo (ex: 2H6BR22): ")).upper()
+        while len(placa) != 7 or not placa.isalnum():
+            print("informação incorreta.")
+            placa = str(input("Insira a placa do seu veículo com 7 caracteres(ex: 2H6BR22) "
+                              "e somente letras e números: ")).strip().upper()
+            if placa.isalnum() and len(placa) == 7:
+                break
         if not checagem(placa, 1):  # coloquei if not. porque ele só vai continuar se ele não existir (Que é False)
-            tipo = str(input("Insira o tipo do seu veículo (moto ou carro): ")).lower()
-            motorista = None  # O motorista inicialmente deverá ser None e depois que deverá referenciar com o motorista do bdMotoristas
-            veiculo = {placa, tipo, motorista}
+            tipo = str(input("Insira o tipo do seu veículo (moto ou carro): ")).strip().title()
+            while tipo != "Moto" and tipo != "Carro":
+                tipo = str(input("Infomação incorreta. Digite somente moto ou carro: ")).strip().title()
+                if tipo == "Moto" or tipo == 'Carro':
+                    break
+            veiculo = {"placa": placa, "tipo": tipo}
             banco_Veiculo[placa] = veiculo
         else:
             print("Este veículo já está cadastrado.")
@@ -69,7 +77,44 @@ def cadastrarVeiculo():
 
 
 def buscarVeiculo():
+    if len(banco_Veiculo) == 0:
+        print("Ainda não existe nenhum veículo cadastrado.\n")
+        return
     while True:
         print(f"{'Buscar Veículo':^40}")
         print('-=' * 20)
-        
+        placa = str(input("Insira a placa do seu veículo: ")).strip().upper()
+        if placa in banco_Veiculo:
+            for veiculo in banco_Veiculo.values():
+                if veiculo.get("placa") == placa:
+                    print('-=' * 20)
+                    print(f'{"Placa":<15}{"Tipo":}')
+                    print(f"{veiculo.get('placa'):<15}{veiculo.get('tipo'):6}")
+                    print("-=" * 20)
+                    print()
+        else:
+            print(f"O veículo com a placa {placa} não está cadastrado.")
+        if not continuar():
+            return
+        print()
+
+
+def addMotorista():
+    if len(banco_Veiculo) == 0:
+        print("Ainda não existe nenhum veículo cadastrado.\n")
+        return
+    else:
+        print("=-=-=-Adicionar Motorista=-=-=-")
+        print('=-'*15)
+        cont = 1
+        print(f'{"Opção":<10}{"Placa":<12}Tipo')
+        for veiculo in banco_Veiculo.values():
+            print(f' [{cont}]      {veiculo.get("placa"):<12}{veiculo.get("tipo")}')
+            cont += 1
+        while True:
+            opcao = int(input("Digite a opção: "))
+            if 1 < opcao > len(banco_Veiculo):
+                print(f"Opção incorreta. Digite somente a opção de 1 a {len(banco_Veiculo)}.\n")
+            else:
+                break
+        motorista = str(input("Digite o nome do motorista que você deseja adicionar ao veículo: "))
