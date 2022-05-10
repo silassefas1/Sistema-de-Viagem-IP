@@ -73,3 +73,16 @@ def buscarVeiculo():
         print(f"{'Buscar Veículo':^40}")
         print('-=' * 20)
         
+# ========================================= Viajem ===================================================================
+#banco_Viajem={veiculo,rota,status[iniciada/finalizada],data[i/f]}
+
+def cadastro_Viajem():
+    while True:
+        print(f'{"Cadastro Viajem":^40}')
+        print(f'{"Selecione um veiculo para a viajem: "}')
+        for i in banco_Veiculo:
+            print(i)
+        veiculo=input('Insira a placa do veiculo para a viajem: ')
+        print('Cadastro de rota')
+        rota=input('Digite o destino da viajem')
+
