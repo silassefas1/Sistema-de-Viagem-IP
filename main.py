@@ -53,7 +53,7 @@ def mainViagem():
         opcaomenu = menuViagem()
         print()
         if opcaomenu == 1:
-            pass
+            cadastro_Viajem()
         elif opcaomenu == 2:
             pass
         elif opcaomenu == 3:
