@@ -1,19 +1,20 @@
-from controladorMotorista import banco_Motorista
-from controladorVeiculo import banco_Veiculo
+from controladorVeiculo import *
 # =-=-=-=-=-=-=-=-=-=-=-=-=-Funções Fundamentais -=-=-==-=-==-=--==-=-=-=-=-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-
 
 
 def checagem(item, codigo=0):  # 0 é motorista, 1 é veículo. Função de checagem
     if codigo == 0:  # motorista
-        if item in banco_Motorista:
+        if item in getBancoMotorista():
             return True   # Se o CPF já existir ele retorna True
         else:
             return False  # Se não existir ele retorna False
     elif codigo == 1:  # veículo
-        if item in banco_Veiculo:  # Se o veículo já existir ele retorna True
-            return True
-        else:  # Se não existir ele retorna False
+        if item in getBancoVeiculo():  # Se o veículo já existir ele retorna True
             return False
+        else:  # Se não existir ele retorna False
+            return True
+
+
 
 
 def continuar():  #Função para a opção de continuar

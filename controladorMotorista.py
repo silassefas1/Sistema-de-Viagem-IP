@@ -1,9 +1,9 @@
 from funcoes import *
-
-
 # =================================================== Motorista =====================================================
-banco_Motorista = {44555888990: {"CPF": 44555888990, "nome": "João", "habilitacao": "AB"},
+def getBancoMotorista():
+    banco_Motorista = {44555888990: {"CPF": 44555888990, "nome": "João", "habilitacao": "AB"},
                    22366895108: {"CPF": 22366895108, "nome": "Paulo", "habilitacao": "B"}}
+    return banco_Motorista
 
 
 def cadastro_Motorista():
@@ -39,3 +39,5 @@ def cadastro_Motorista():
 
 def buscarMotorista():
     pass
+
+

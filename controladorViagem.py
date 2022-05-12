@@ -1,6 +1,4 @@
-from funcoes import *
-from controladorMotorista import banco_Motorista
-from controladorVeiculo import banco_Veiculo
+from controladorVeiculo import *
 # ========================================= Viajem ===================================================================
 #banco_Viajem={veiculo,rota,status[iniciada/finalizada],data[i/f]}
 
