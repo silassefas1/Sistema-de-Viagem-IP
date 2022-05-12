@@ -1,69 +1,5 @@
-# =-=-=-=-=-=-=-=-=-=-=-=-=-Funções Fundamentais -=-=-==-=-==-=--==-=-=-=-=-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-
-
-
-def checagem(item, codigo=0):  # 0 é motorista, 1 é veículo. Função de checagem
-    if codigo == 0:  # motorista
-        if item in banco_Motorista:
-            return True   # Se o CPF já existir ele retorna True
-        else:
-            return False  # Se não existir ele retorna False
-    elif codigo == 1:  # veículo
-        if item in banco_Veiculo:  # Se o veículo já existir ele retorna True
-            return True
-        else:  # Se não existir ele retorna False
-            return False
-
-
-def continuar():  #Função para a opção de continuar
-    while True:
-        opcao = str(input("Deseja continuar [S/N]? ")).strip().upper()
-        while opcao not in "SN":
-            opcao = str(input("Opção incorreta. Digite somente s - Sim ou n - Não: ")).strip().upper()
-        print()
-        if opcao == "S":
-            return True  # se a opcao for S, ele retorna True
-        else:  # se a opcao for N, ele retorna False
-            return False
-
-
-# =================================================== Motorista =====================================================
-banco_Motorista = {44555888990: {"CPF": 44555888990, "nome": "João", "habilitacao": "AB"},
-                   22366895108: {"CPF": 22366895108, "nome": "Paulo", "habilitacao": "B"}}
-
-
-def cadastro_Motorista():
-    print("=-=-Cadastro do Motorista=-=-=-")
-    print("=-" * 15)
-    while True:
-        cpf = input("Insira um CPF com 11 dígitos: ").strip()
-        while not cpf.isdigit() or len(cpf) != 11:
-            cpf = input("Informação incorreta. Digite somente números ou um CPF válido (com 11 dígitos): ").strip()
-        cpf = int(cpf)
-        if not checagem(cpf):
-            nome = str(input("Insira o nome do funcionario: "))
-            while not nome.isalpha():
-                nome = input("Informação incorreta. Insira somente letras: ")
-            habilitacao = str(input(f"Insira a carteira de habilitação de {nome} (A, B ou AB): "))
-            while habilitacao not in "ABab":
-                habilitacao = str(input(f"Informação incorreta. Digite somente uma carteira A, B ou AB: "))
-            dic_Motorista = {"CPF": cpf, "nome": nome.strip().title(), "habilitacao": habilitacao.strip().upper()}
-            banco_Motorista[cpf] = dic_Motorista
-            if not continuar():
-                return
-            print("=-" * 15)
-        else:
-            for pessoa, motorista in banco_Motorista.items():
-                print(motorista)
-                if pessoa == cpf:
-                    print(f'O CPF {cpf} pertence ao motorista {motorista.get("nome")} e já está cadastrado.')
-                    break
-            if not continuar():
-                return
-            return cadastro_Motorista()
-
-
-def buscarMotorista():
-
+from funcoes import *
+from controladorMotorista import banco_Motorista
 # ========================================= Veículo ===================================================================
 banco_Veiculo = {'2HBR220': {'placa': "2HBR220", 'tipo': "Carro", "motorista": 'João'},
                  "2HBTR78": {'placa': "2HBTR78", "tipo": "Moto", "motorista": None}}
@@ -286,24 +222,3 @@ def removerVeiculo():
                 return
             else:
                 return removerVeiculo()
-# ========================================= Viajem ===================================================================
-#banco_Viajem={veiculo,rota,status[iniciada/finalizada],data[i/f]}
-
-def cadastro_Viajem():
-    while True:
-        print('Cadastro Viajem')
-        print('Selecione um veiculo para a viajem:')
-        for i in banco_Veiculo: #mostrar todos os veiculos do banco
-            print(i)
-        veiculo=input('Insira a placa do veiculo para a viajem: ') # armazenar o veiculo selecionado pela placa
-        print('Cadastro de rota')
-        if veiculo in banco_Veiculo:
-            return True
-        else:
-            print('Veiculo não cadastrado.')
-            cadastro_Viajem()
-
-        inicio=input('Digite o local de saida: ') # armazenar os valores de inicio e fim da viajem
-        fim=input('Digite o destino final da viagem: ')
-        rota ='Viajem de '+ inicio + ' para ' + fim+'.'
-        status = True

@@ -1,5 +1,5 @@
 from menu import *
-from Controlador import *
+from controladorMotorista import *
 
 
 def mainMotorista():
