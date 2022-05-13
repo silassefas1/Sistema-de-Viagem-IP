@@ -1,4 +1,5 @@
-from controladorVeiculo import *
+from funcoes import *  # aqui ele já está importando o banco Geral porque no arquivo funções ele já está importando
+# e eu estou importando as funções.
 # ========================================= Viajem ===================================================================
 #banco_Viajem={veiculo,rota,status[iniciada/finalizada],data[i/f]}
 

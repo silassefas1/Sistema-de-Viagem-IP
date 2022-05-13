@@ -1,12 +1,7 @@
-from controladorMotorista import *
+from funcoes import *  # aqui ele já está importando o banco Geral porque no arquivo funções ele já está importando
+# e eu estou importando as funções.
 
 # ========================================= Veículo ===================================================================
-
-
-def getBancoVeiculo():
-    banco_Veiculo = {'2HBR220': {'placa': "2HBR220", 'tipo': "Carro", "motorista": 'João'},
-                 "2HBTR78": {'placa': "2HBTR78", "tipo": "Moto", "motorista": None}}
-    return banco_Veiculo
 
 
 def cadastrarVeiculo():
@@ -23,7 +18,7 @@ def cadastrarVeiculo():
             while tipo != "Moto" and tipo != "Carro":
                 tipo = str(input("Infomação incorreta. Digite somente moto ou carro: ")).strip().title()
             veiculo = {"placa": placa, "tipo": tipo, "motorista": None}
-            getBancoVeiculo()[placa] = veiculo
+            banco_Veiculo[placa] = veiculo
         else:
             print("Este veículo já está cadastrado.")
         if not continuar():
@@ -32,15 +27,15 @@ def cadastrarVeiculo():
 
 
 def buscarVeiculo():
-    if len(getBancoVeiculo()) == 0:
+    if len(banco_Veiculo) == 0:
         print("Ainda não existe nenhum veículo cadastrado.\n")
         return
     while True:
         print(f"{'Buscar Veículo':^40}")
         print('-=' * 20)
         placa = str(input("Insira a placa do seu veículo: ")).strip().upper()
-        if placa in getBancoVeiculo():
-            for veiculo in getBancoVeiculo().values():
+        if placa in banco_Veiculo:
+            for veiculo in banco_Veiculo.values():
                 if veiculo.get("placa") == placa:
                     if veiculo.get("Motorista") is not None:
                         print('-=' * 20)
@@ -62,7 +57,7 @@ def buscarVeiculo():
 
 
 def addMotoristaVeic():
-    if len(getBancoVeiculo()) == 0:
+    if len(banco_Veiculo) == 0:
         print("Ainda não existe nenhum veículo cadastrado.\n")
         return
     else:
@@ -71,7 +66,7 @@ def addMotoristaVeic():
             while True:
                 placa = str(input("Digite a placa do veículo desejado: ")).strip().upper()
                 existe = False
-                for veiculo in getBancoVeiculo().keys():
+                for veiculo in banco_Veiculo.keys():
                     if placa == veiculo:
                         existe = True
                 if not existe:
@@ -80,16 +75,16 @@ def addMotoristaVeic():
                     break
             nome = str(input("Digite o nome do motorista que você deseja adicionar ao veículo: ")).title()
             nMotorista = False
-            for veiculo in getBancoVeiculo().values():
+            for veiculo in banco_Veiculo.values():
                 if veiculo.get("placa") == placa and nome == veiculo.get("motorista"):
                     print(f"O motorista {nome} já está vinculado a este veículo.\n")
                     nMotorista = True
             if not nMotorista:
                 # Depois # verificar se a carteira dele é correspondente ao veículo. A - Carro, B - Moto, A/B Carro e Moto
                 nMotorista = False
-                for cpf in getBancoMotorista().values():
+                for cpf in banco_Motorista.values():
                     if nome == cpf.get("nome"):
-                        for veiculo in getBancoVeiculo().values():
+                        for veiculo in banco_Veiculo.values():
                             if placa == veiculo.get("placa"):
                                 veiculo["motorista"] = nome
                                 nMotorista = True
@@ -106,58 +101,66 @@ def addMotoristaVeic():
 
 
 def removerMotoristaVeic():
-    if len(getBancoVeiculo()) == 0:
+    if len(banco_Veiculo) == 0:
         print("Ainda não existe nenhum veículo cadastrado.\n")
         return
     else:
-        print("=-=-=-Remover Motorista do Veículo=-=-=-")
-        print('=-'*15)
-        nMotoristas = 0
-        while True:
-            nome = str(input("Digite o nome do motorista que você deseja desvincular do veículo: ")).strip().title()
-            for motorista in getBancoVeiculo().values():
-                if motorista.get("motorista") == nome:
-                    nMotoristas += 1
-            if nMotoristas == 0:
-                print(f"O motorista {nome} não está vinculado a nenhum veículo ou não existe.\n")
-                if not continuar():
-                    return
-                else:
-                    return removerMotoristaVeic()
-            else:
-                print(f"=-=-=-Veículo(s) de {nome}-=-=-=")
-                print(f'{" " * 7}{"Placa":<12}{"Tipo":8}')
-                for veiculo in getBancoVeiculo().values():
-                    if nome == veiculo.get("motorista"):
-                        print(f'{" " * 7}{veiculo.get("placa"):<12}{veiculo.get("tipo"):8}')
-                while True:
-                    placa = str(input(f"Digite a placa do veículo que deseja desvincular "
-                                      f"do motorista {nome}: ")).strip().upper()
-                    for veiculo in getBancoVeiculo().values():
-                        if veiculo.get("placa") == placa and veiculo.get("motorista") == nome:
-                            opcao = str(input("Você tem certeza [S/N]? ")).strip().upper()
-                            while opcao not in "SN":
-                                opcao = str(input("Opção incorreta. Digite somente s - Sim ou n - Não: ")).strip().upper()
-                            print()
-                            if opcao == "N":
-                                return
-                            else:
-                                if veiculo.get('placa') == placa:
-                                    veiculo["motorista"] = None
-                                    print("Motorista desvinculado com sucesso!\n")
-                                    return
-                    print("Este veículo não existe. Tente novamente")
+        motoristaCadastrado = 0
+        for veiculo in banco_Veiculo.values():
+            if veiculo.get("motorista") is not None:
+                motoristaCadastrado += 1
+        if motoristaCadastrado != 0:
+            print("=-=-=-Remover Motorista do Veículo=-=-=-")
+            print('=-'*15)
+            nMotoristas = 0
+            while True:
+                nome = str(input("Digite o nome do motorista que você deseja desvincular do veículo: ")).strip().title()
+                for motorista in banco_Veiculo.values():
+                    if motorista.get("motorista") == nome:
+                        nMotoristas += 1
+                if nMotoristas == 0:
+                    print(f"O motorista {nome} não está vinculado a nenhum veículo ou não existe.\n")
                     if not continuar():
                         return
+                    else:
+                        return removerMotoristaVeic()
+                else:
+                    print(f"=-=-=-Veículo(s) de {nome}-=-=-=")
+                    print(f'{" " * 7}{"Placa":<12}{"Tipo":8}')
+                    for veiculo in banco_Veiculo.values():
+                        if nome == veiculo.get("motorista"):
+                            print(f'{" " * 7}{veiculo.get("placa"):<12}{veiculo.get("tipo"):8}')
+                    while True:
+                        placa = str(input(f"Digite a placa do veículo que deseja desvincular "
+                                          f"do motorista {nome}: ")).strip().upper()
+                        for veiculo in banco_Veiculo.values():
+                            if veiculo.get("placa") == placa and veiculo.get("motorista") == nome:
+                                opcao = str(input("Você tem certeza [S/N]? ")).strip().upper()
+                                while opcao not in "SN":
+                                    opcao = str(input("Opção incorreta. Digite somente s - Sim ou n - Não: ")).strip().upper()
+                                print()
+                                if opcao == "N":
+                                    return
+                                else:
+                                    if veiculo.get('placa') == placa:
+                                        veiculo["motorista"] = None
+                                        print("Motorista desvinculado com sucesso!\n")
+                                        return
+                        print("Este veículo não existe. Tente novamente")
+                        if not continuar():
+                            return
+        else:
+            print("Ainda não existe nenhum motorista vinculado a um veículo.\n")
+            return
 
 
 def listarVeicCMotorista():
-    if len(getBancoVeiculo()) == 0:
+    if len(banco_Veiculo) == 0:
         print("Ainda não existe nenhum veículo cadastrado.\n")
         return
     else:
         nMotoristas = 0
-        for veiculo in getBancoVeiculo().values():
+        for veiculo in banco_Veiculo.values():
             if veiculo.get("motorista") is not None:
                 nMotoristas += 1
         if nMotoristas == 0:
@@ -166,7 +169,7 @@ def listarVeicCMotorista():
         else:
             print("=-=-=-Veículos Com Motorista-=-=-=")
             print(f'{"Placa":<12}{"Tipo":8}{"Motorista"}')
-            for veiculo in getBancoVeiculo().values():
+            for veiculo in banco_Veiculo.values():
                 if veiculo.get("motorista") is not None:
                     print(f'{veiculo.get("placa"):<12}{veiculo.get("tipo"):8}{veiculo.get("motorista")}')
             print('=-' * 17)
@@ -174,11 +177,11 @@ def listarVeicCMotorista():
 
 
 def listarVeicSMotorista():
-    if len(getBancoVeiculo()) == 0:
+    if len(banco_Veiculo) == 0:
         print("Ainda não existe nenhum veículo cadastrado.\n")
         return
     nMotoristas = 0
-    for veiculo in getBancoVeiculo().values():
+    for veiculo in banco_Veiculo.values():
         if veiculo.get("motorista") is None:
             nMotoristas += 1
     if nMotoristas == 0:
@@ -187,7 +190,7 @@ def listarVeicSMotorista():
     else:
         print("=-=-=-Veículos Sem Motorista-=-=-=")
         print(f'{" " * 9}{"Placa":<12}{"Tipo":8}')
-        for veiculo in getBancoVeiculo().values():
+        for veiculo in banco_Veiculo.values():
             if veiculo.get("motorista") is None:
                 print(f'{" " * 9}{veiculo.get("placa"):<12}{veiculo.get("tipo"):8}')
         print('=-' * 17)
@@ -196,20 +199,22 @@ def listarVeicSMotorista():
 
 def removerVeiculo():
     print("=-=-=-Remover Veículo-=-=-=")
-    if len(getBancoVeiculo()) == 0:
+    if len(banco_Veiculo) == 0:
         print("Ainda não existe nenhum veículo cadastrado.\n")
         return
     else:
         placa = str(input("Digite a placa do veículo que deseja remover do cadastro: ")).strip().upper()
         cadastrado = False
-        for veiculo in getBancoVeiculo():
+        for veiculo in banco_Veiculo:
             if placa == veiculo:
                 cadastrado = True
         if cadastrado:
-            for veiculo in getBancoVeiculo().values():
+            for veiculo in banco_Veiculo.values():
                 if placa == veiculo["placa"]:
+                    print('=-' * 15)
                     print(f'{"Placa":<12}{"Tipo":8}{"Motorista"}')
                     print(f'{veiculo.get("placa"):<12}{veiculo.get("tipo"):8}{veiculo.get("motorista")}')
+                    print('=-' * 15)
                     opcao = str(input("Você tem certeza [S/N]? ")).strip().upper()
                     while opcao not in "SN":
                         opcao = str(input("Opção incorreta. Digite somente s - Sim ou n - Não: ")).strip().upper()
@@ -217,7 +222,7 @@ def removerVeiculo():
                     if opcao == "N":
                         return
                     else:
-                        del getBancoVeiculo()[placa]
+                        del banco_Veiculo[placa]
                         print("Veículo removido com sucesso!")
                         return
         else:

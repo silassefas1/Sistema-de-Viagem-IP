@@ -1,9 +1,6 @@
-from funcoes import *
+from funcoes import *  # aqui ele já está importando o banco Geral porque no arquivo funções ele já está importando
+# e eu estou importando as funções.
 # =================================================== Motorista =====================================================
-def getBancoMotorista():
-    banco_Motorista = {44555888990: {"CPF": 44555888990, "nome": "João", "habilitacao": "AB"},
-                   22366895108: {"CPF": 22366895108, "nome": "Paulo", "habilitacao": "B"}}
-    return banco_Motorista
 
 
 def cadastro_Motorista():
