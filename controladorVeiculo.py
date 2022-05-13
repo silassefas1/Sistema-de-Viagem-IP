@@ -31,8 +31,7 @@ def buscarVeiculo():
         print("Ainda não existe nenhum veículo cadastrado.\n")
         return
     while True:
-        print(f"{'Buscar Veículo':^40}")
-        print('-=' * 20)
+        print('-=-=-=-=Buscar Veículo-=-=-=-=')
         placa = str(input("Insira a placa do seu veículo: ")).strip().upper()
         if placa in banco_Veiculo:
             for veiculo in banco_Veiculo.values():
@@ -73,7 +72,7 @@ def addMotoristaVeic():
                     print(f"Esse Veículo não existe. Tente novamente.\n")
                 else:
                     break
-            nome = str(input("Digite o nome do motorista que você deseja adicionar ao veículo: ")).title()
+            nome = str(input("Digite o nome do motorista que você deseja adicionar ao veículo: ")).strip().title()
             nMotorista = False
             for veiculo in banco_Veiculo.values():
                 if veiculo.get("placa") == placa and nome == veiculo.get("motorista"):
@@ -123,7 +122,7 @@ def removerMotoristaVeic():
                     if not continuar():
                         return
                     else:
-                        return removerMotoristaVeic()
+                        removerMotoristaVeic()
                 else:
                     print(f"=-=-=-Veículo(s) de {nome}-=-=-=")
                     print(f'{" " * 7}{"Placa":<12}{"Tipo":8}')
@@ -230,5 +229,5 @@ def removerVeiculo():
             if not continuar():
                 return
             else:
-                return removerVeiculo()
+                removerVeiculo()
 

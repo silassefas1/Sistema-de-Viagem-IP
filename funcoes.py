@@ -27,3 +27,11 @@ def continuar():  #Função para a opção de continuar
             return True  # se a opcao for S, ele retorna True
         else:  # se a opcao for N, ele retorna False
             return False
+
+
+def verifyName(nome):
+    count = nome.count(" ")
+    if count > 0:
+        lNome = nome.split()
+        lNome= ''.join(lNome)
+        return nome, lNome

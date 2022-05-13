@@ -13,13 +13,13 @@ def mainMotorista():
         elif opcaomenu == 2:
             buscarMotorista()
         elif opcaomenu == 3:
-            pass
+            editarMotorista()
         elif opcaomenu == 4:
-            pass
+            removerMotorista()
         elif opcaomenu == 5:
-            pass
+            listarMotoristasCNH()
         elif opcaomenu == 6:
-            pass
+            listarMotoristas()
         elif opcaomenu == 7:
             break
         else:
