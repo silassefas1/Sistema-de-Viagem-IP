@@ -1,5 +1,7 @@
 from menu import *
+from controladorMotorista import *
 from controladorVeiculo import *
+from controladorViagem import *
 
 
 def mainMotorista():
@@ -9,7 +11,7 @@ def mainMotorista():
         if opcaomenu == 1:
             cadastro_Motorista()
         elif opcaomenu == 2:
-            pass
+            buscarMotorista()
         elif opcaomenu == 3:
             pass
         elif opcaomenu == 4:

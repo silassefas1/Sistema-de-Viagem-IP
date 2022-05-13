@@ -18,8 +18,8 @@ def cadastro_Motorista():
             habilitacao = str(input(f"Insira a carteira de habilitação de {nome} (A, B ou AB): "))
             while habilitacao not in "ABab":
                 habilitacao = str(input(f"Informação incorreta. Digite somente uma carteira A, B ou AB: "))
-            dic_Motorista = {"CPF": cpf, "nome": nome.strip().title(), "habilitacao": habilitacao.strip().upper()}
-            banco_Motorista[cpf] = dic_Motorista
+            motorista = {"CPF": cpf, "nome": nome.strip().title(), "habilitacao": habilitacao.strip().upper()}
+            banco_Motorista[cpf] = motorista
             if not continuar():
                 return
             print("=-" * 15)
@@ -31,10 +31,13 @@ def cadastro_Motorista():
                     break
             if not continuar():
                 return
-            return cadastro_Motorista()
+
+            cadastro_Motorista()
 
 
 def buscarMotorista():
-    pass
+    if len(banco_Motorista) == 0:
+        print("Ainda não existe nenhum motorista cadastrado.")
+        return
 
 
