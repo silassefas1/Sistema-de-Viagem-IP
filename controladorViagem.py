@@ -1,6 +1,6 @@
 from funcoes import *
 # aqui ele já está importando o banco Geral porque no arquivo funções ele já está importando
-# e eu estou importando as funções.
+# e eu estou importando as funções e os dicionários.
 from controladorVeiculo import *
 # ========================================= Viajem ===================================================================
 banco_Viajem={}
@@ -19,7 +19,7 @@ def cadastro_Viajem():
         veiculo = selecao_Veiculo in banco_Veiculo
         if not selecao_Veiculo in banco_Veiculo:
             print('Veiculo não cadastrado.')
-            novamente = int(input('1 para cadastra um veiculo \n '
+            novamente = int(input('1 para cadastrar um veículo. \n '
                                   '2 para tentar novamente.'))
             if novamente == 1:
                 cadastrarVeiculo()
@@ -30,7 +30,7 @@ def cadastro_Viajem():
         fim_Rota=input('Digite o destino final da viagem: ')
         rota = 'Viajem de '+ inicio_Rota + ' para ' + fim_Rota+'.'
         # Data da viajem
-        print('Cadastra datas da viajem')
+        print('Cadastrar datas da viajem')
         inicio_Data=input('Digite a data de inicio: ')
         fim_Data=input('Digite a data de fim: ')
         periodo = inicio_Data + ' até '+ fim_Data
