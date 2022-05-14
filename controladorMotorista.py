@@ -104,7 +104,6 @@ def editarMotorista():
 
 def removerMotorista():
     if len(banco_Motorista) == 0:
-        print(len(banco_Motorista))
         print("Ainda não existe nenhum motorista cadastrado.")
         return
     else:
@@ -129,11 +128,9 @@ def removerMotorista():
                             del banco_Motorista[cpf]
                             print("Motorista deletado com sucesso.\n")
                             break
+                break
             else:
                 print(f"O CPF {cpf} não está cadastrado.")
-            if not continuar():
-                return
-            removerMotorista()
 
 
 def listarMotoristasCNH():
