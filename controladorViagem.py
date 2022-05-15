@@ -2,72 +2,77 @@ from funcoes import *
 from controladorVeiculo import *
 from bancoGeral import *
 
+
 # aqui ele já está importando o banco Geral porque no arquivo funções ele já está importando
 # e eu estou importando as funções.
 # ========================================= Viajem ===================================================================
+bdViajem = {'2HBR220': {'Veiculo': "2HBR220",'Destino':"Recife",'Status':True,'Periodo':"15/05 ate 16/05"}
+            }
+placa = None
+status = None
 
-placa= None
-
-def cadastro_Viajem():
-    while True:    # cadastro Veiculo
+def criarViajem():
+    while True:    # cadastro Veiculo===================================================================================
         print('Cadastro Viajem')
         print('Selecione um veiculo para a viajem:')
-        # mostrar todos os veiculos do banco
-        for i in banco_Veiculo:
-            print(i)
-        # armazenar o veiculo selecionado pela placa
+        # mostrar todos os veiculos do banco==========================================================================
+        for veiculo in banco_Veiculo:
+            if not veiculo in bdViajem:
+                print(veiculo)
+
         selecao_Veiculo=input('Insira a placa do veiculo para a viajem: ').upper()
-        veiculo = selecao_Veiculo
+        placa = selecao_Veiculo
         if not selecao_Veiculo in banco_Veiculo:
             print('Veiculo não cadastrado.')
-            novamente = int(input('1 para cadastra um veiculo \n '
-                                  '2 para tentar novamente.'))
+            novamente = int(input('1 Cadastra um veiculo \n '
+                                  '2 Tentar novamente.'))
             if novamente == 1:
                 cadastrarVeiculo()
             elif novamente == 2:
                 cadastro_Viajem()
-        # cadastro rota
-        inicio_Rota=input('Digite o local de saida: ')
-        fim_Rota=input('Digite o destino final da viagem: ')
-        rota = 'Viajem de '+ inicio_Rota + ' para ' + fim_Rota+'.'
-        # Data da viajem
+        # cadastro rota===================================================================================
+        print('Cadastro de Rota')
+        rota = str(input('Digite o destino: '))
+
+        # Data da viajem===================================================================================
         print('Cadastra datas da viajem')
         inicio_Data=input('Digite a data de inicio: ')
         fim_Data=input('Digite a data de fim: ')
-        periodo = inicio_Data + ' até '+ fim_Data
-        # atribuir status
+        periodo = f"{inicio_Data} até {fim_Data}"
+        # atribuir status===================================================================================
         print('Viajem iniciada.')
-        status = True
+        status = "True"
+        # alimentar dicionario===================================================================================
+        viagem = {placa: {'Veiculo': f"{placa}",'Destino':f"{rota}",'Status':f"{status}",'Periodo':f"{periodo}"}}
+        bdViajem[placa] = viagem
+
         print('Viajem cadastrada.')
-        viagem = {veiculo:{'Veiculo': veiculo, 'Rota': rota, 'Periodo': periodo, 'Status': status}}
-        banco_Viajem[veiculo]=viagem
+
+        # Nova Viajem===================================================================================
         novo_cadastro = int(input('Deseja fazer um novo cadastro? \n'
                                   '1 - Sim\n'
                                   '2 - Não\n'))
 
         if novo_cadastro == 1:
-            return banco_Viajem
+            return bdViajem
             cadastro_Viajem()
         else:
             print('Pressione enter para voltar ao menu...')
             input()
         break
 
+def fimViajem():
 
-def finalizar_Viajem():
-    for veiculo in banco_Viajem.values():
-        print(veiculo)
-    viajem_Fim=input('Qual viajem você quer finalizar? ') # colocar verificação se a viajem existe
-    opcao_Fim = int(input(f'Tem certeza que quer finalizar a viajem {viajem_Fim} ? \n'
-                          f'1 - Sim\n'
-                          f'2 - Não\n'))
-    if opcao_Fim == 1:
-        viajem_status={}
-        viajem_status.get(banco_Viajem.items(viajem_Fim))
-        print(viajem_status)
+    for a in bdViajem:
+        print(a)
+    placa = input()
+    print(bdViajem[placa])
+    for a in bdViajem.values():
+        if placa == a['Veiculo']:
+            a['Status'] = False
+    print(bdViajem[placa])
 
-
-def listar_Viajem():
-    for viajem in banco_Viajem.values():
-        print(viajem)
-
+def listarViagem():
+    for a in bdViajem.items():
+        print(a)
+        input('Enter para voltar ao menu')

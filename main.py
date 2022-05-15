@@ -55,9 +55,9 @@ def mainViagem():
         opcaomenu = menuViagem()
         print()
         if opcaomenu == 1:
-            cadastro_Viajem()
+            criarViajem()
         elif opcaomenu == 2:
-            pass
+            fimViajem()
         elif opcaomenu == 3:
             pass
         elif opcaomenu == 4:
@@ -65,7 +65,7 @@ def mainViagem():
         elif opcaomenu == 5:
             pass
         elif opcaomenu == 6:
-            pass
+            listarViagem()
         elif opcaomenu == 7:
             pass
         elif opcaomenu == 8:
