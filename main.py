@@ -13,13 +13,13 @@ def mainMotorista():
         elif opcaomenu == 2:
             buscarMotorista()
         elif opcaomenu == 3:
-            pass
+            editarMotorista()
         elif opcaomenu == 4:
-            pass
+            removerMotorista()
         elif opcaomenu == 5:
-            pass
+            listarMotoristasCNH()
         elif opcaomenu == 6:
-            pass
+            listarMotoristas()
         elif opcaomenu == 7:
             break
         else:
@@ -57,7 +57,7 @@ def mainViagem():
         if opcaomenu == 1:
             cadastro_Viajem()
         elif opcaomenu == 2:
-            finalizar_Viajem()
+            pass
         elif opcaomenu == 3:
             pass
         elif opcaomenu == 4:
@@ -65,7 +65,7 @@ def mainViagem():
         elif opcaomenu == 5:
             pass
         elif opcaomenu == 6:
-            listar_Viajem()
+            pass
         elif opcaomenu == 7:
             pass
         elif opcaomenu == 8:
