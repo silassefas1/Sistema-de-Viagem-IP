@@ -1,4 +1,5 @@
 from bancoGeral import *
+from controladorViagem import *
 # =-=-=-=-=-=-=-=-=-=-=-=-=-Funções Fundamentais -=-=-==-=-==-=--==-=-=-=-=-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-
 
 
@@ -27,3 +28,7 @@ def continuar():  #Função para a opção de continuar
             return True  # se a opcao for S, ele retorna True
         else:  # se a opcao for N, ele retorna False
             return False
+
+
+
+
