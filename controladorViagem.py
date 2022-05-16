@@ -57,7 +57,7 @@ def criarViajem():
             status = "True"
             # alimentar dicionario===================================================================================
             viagem = {
-                placa: {'Veiculo': f"{placa}", 'Destino': f"{rota}", 'Status': f"{status}", 'Periodo': f"{periodo}"}}
+                placa: {'Veiculo': f"{placa}", 'Destino': f"{rota}", 'Status': f"{status}", 'Periodo':f"{inicio_Data} ate {fim_Data}"}}
             bdViajem[placa] = viagem
 
             print('Viajem cadastrada.')
@@ -117,4 +117,9 @@ def todasAsViagens():
     input('Pressione enter para voltar ao menu. ')
 
 
-def
+def vigemPorPeriodo():
+    periodoInicio = float(input('inicio: '))
+    periodoFim = float(input('fim: '))
+    for a in bdViajem.values():
+        if a in bdViajem['Periodo'] >= periodoInicio and bdViajem['Periodo'] <= periodoFim:
+            print(a)

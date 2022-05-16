@@ -67,7 +67,7 @@ def mainViagem():
         elif opcaomenu == 6:
             todasAsViagens()
         elif opcaomenu == 7:
-            pass
+            vigemPorPeriodo()
         elif opcaomenu == 8:
             break
         else:
