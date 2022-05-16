@@ -2,8 +2,6 @@ from funcoes import *
 from controladorVeiculo import *
 from bancoGeral import *
 
-
-
 # aqui ele já está importando o banco Geral porque no arquivo funções ele já está importando
 # e eu estou importando as funções.
 # ========================================= Viajem ===================================================================
@@ -11,8 +9,9 @@ from bancoGeral import *
 placa = None
 status = None
 
+
 def criarViajem():
-    while True:    # cadastro Veiculo===================================================================================
+    while True:  # cadastro Veiculo===================================================================================
         print('Cadastro Viajem')
         cont = len(banco_Veiculo)
         for a in banco_Veiculo and bdViajem:
@@ -34,7 +33,7 @@ def criarViajem():
                 if not veiculo in bdViajem:
                     print(veiculo)
 
-            selecao_Veiculo=input('Insira a placa do veiculo para a viajem: ').upper()
+            selecao_Veiculo = input('Insira a placa do veiculo para a viajem: ').upper()
             placa = selecao_Veiculo
             if not selecao_Veiculo in banco_Veiculo:
                 print('Veiculo não cadastrado.')
@@ -50,14 +49,15 @@ def criarViajem():
 
             # Data da viajem===================================================================================
             print('Cadastra datas da viajem')
-            inicio_Data=float(input('Digite a data de inicio: na forma DD.MM '))
-            fim_Data=float(input('Digite a data de fim: na forma DD.MM '))
+            inicio_Data = float(input('Digite a data de inicio: na forma DD.MM '))
+            fim_Data = float(input('Digite a data de fim: na forma DD.MM '))
             periodo = f"{inicio_Data} até {fim_Data}"
             # atribuir status===================================================================================
             print('Viajem iniciada.')
             status = "True"
             # alimentar dicionario===================================================================================
-            viagem = {placa: {'Veiculo': f"{placa}",'Destino':f"{rota}",'Status':f"{status}",'Periodo':f"{periodo}"}}
+            viagem = {
+                placa: {'Veiculo': f"{placa}", 'Destino': f"{rota}", 'Status': f"{status}", 'Periodo': f"{periodo}"}}
             bdViajem[placa] = viagem
 
             print('Viajem cadastrada.')
@@ -74,6 +74,7 @@ def criarViajem():
                 input()
             break
 
+
 def fimViajem():
     print('Qual Viajem você deseja finalizar: ')
     for a in bdViajem:
@@ -85,12 +86,35 @@ def fimViajem():
     print('Viajem Finalizada com sucesso.')
     input('Presione enter para voltar ao menu.')
 
+
 def viajemAtiva():
-    
+    print('Segue abaixo lista de viajens ativas: \n')
+    for a in bdViajem.values():
+        if a['Status']:
+            print(a)
+    input('Pressione enter para voltar ao menu. ')
 
 
+def veiculoEmViajem():
+    print('Segue abaixo lista de veiculos em viajem: ')
+    for a in bdViajem.values():  # tentar colocar o tipo do veiculo junto
+        if a['Status']:
+            print(a['Veiculo'])
+    input('Pressione enter para voltar ao menu. ')
 
-def listarViagem():
+
+def veiculoDisponivel():
+    print('Segue abaixo lista de veiculos dispobiveis para Viajem: ')
+    for a in bdViajem.values():  # tentar colocar o tipo do veiculo junto
+        if not a['Status']:
+            print(a['Veiculo'])
+    input('Pressione enter para voltar ao menu. ')
+
+
+def todasAsViagens():
     for a in bdViajem.items():
         print(a)
-        input('Enter para voltar ao menu')
+    input('Pressione enter para voltar ao menu. ')
+
+
+def

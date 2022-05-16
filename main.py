@@ -59,13 +59,13 @@ def mainViagem():
         elif opcaomenu == 2:
             fimViajem()
         elif opcaomenu == 3:
-            pass
+            viajemAtiva()
         elif opcaomenu == 4:
-            pass
+            veiculoEmViajem()
         elif opcaomenu == 5:
-            pass
+            veiculoDisponivel()
         elif opcaomenu == 6:
-            listarViagem()
+            todasAsViagens()
         elif opcaomenu == 7:
             pass
         elif opcaomenu == 8:
