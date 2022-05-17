@@ -1,0 +1,26 @@
+{
+    "banco_motorista": {
+        "11886901406": {
+            "CPF": "11886901406",
+            "nome": "Marco",
+            "habilitacao": "AB"
+        },
+        "11884845562": {
+            "CPF": "11884845562",
+            "nome": "M",
+            "habilitacao": "B"
+        }
+    },
+    "banco_veiculo": {
+        "2HBR220": {
+            "placa": "2HBR220",
+            "tipo": "Carro",
+            "motorista": null
+        },
+        "2HBTR78": {
+            "placa": "2HBTR78",
+            "tipo": "Moto",
+            "motorista": null
+        }
+    }
+}
