@@ -1,16 +1,18 @@
-from funcoes import *  # aqui ele já está importando o banco Geral porque no arquivo funções ele já está importando
+from funcoes import *
+from bancoGeral import ler, escrever
+# aqui ele já está importando o banco Geral porque no arquivo funções ele já está importando
 # e eu estou importando as funções.
 # =================================================== Motorista =====================================================
 
 
 def cadastro_Motorista():
+    ler()
     print("=-=-Cadastro do Motorista=-=-=-")
     print("=-" * 15)
     while True:
         cpf = input("Insira um CPF com 11 dígitos: ").strip()
         while not cpf.isdigit() or len(cpf) != 11:
             cpf = input("Informação incorreta. Digite somente números ou um CPF válido (com 11 dígitos): ").strip()
-        cpf = int(cpf)
         if not checagem(cpf):
             nome = str(input("Insira o nome do motorista: ")).strip().title()
             while not nome.isalpha():
@@ -19,13 +21,14 @@ def cadastro_Motorista():
             while habilitacao not in "ABab":
                 habilitacao = str(input(f"Informação incorreta. Digite somente uma carteira A, B ou AB: "))
             motorista = {"CPF": cpf, "nome": nome, "habilitacao": habilitacao.strip().upper()}
-            banco_Motorista[cpf] = motorista
+            get_bm()[cpf] = motorista
+            escrever()
             print(f"Motorista {nome} cadastrado com sucesso!")
             if not continuar():
                 return
             print("=-" * 15)
         else:
-            for pessoa, motorista in banco_Motorista.items():
+            for pessoa, motorista in get_bm().items():
                 if pessoa == cpf:
                     print(f'O CPF {cpf} pertence ao motorista {motorista.get("nome")} e já está cadastrado.')
                     break
@@ -35,7 +38,8 @@ def cadastro_Motorista():
 
 
 def buscarMotorista():
-    if len(banco_Motorista) == 0:
+    ler()
+    if len(get_bm()) == 0:
         print("Ainda não existe nenhum motorista cadastrado.")
         return
     else:
@@ -44,9 +48,8 @@ def buscarMotorista():
             cpf = input("Insira um CPF com 11 dígitos do motorista que você deseja busca: ").strip()
             while not cpf.isdigit() or len(cpf) != 11:
                 cpf = input("Informação incorreta. Digite somente números ou um CPF válido (com 11 dígitos): ").strip()
-            cpf = int(cpf)
-            if cpf in banco_Motorista:
-                for motorista in banco_Motorista.values():
+            if cpf in get_bm():
+                for motorista in get_bm().values():
                     if motorista.get("CPF") == cpf:
                         print('-=' * 25)
                         print(f'{"CPF":<18}{"Nome":10}{"Habilitação"}')
@@ -61,7 +64,8 @@ def buscarMotorista():
 
 
 def editarMotorista():
-    if len(banco_Motorista) == 0:
+    ler()
+    if len(get_bm()) == 0:
         print("Ainda não existe nenhum motorista cadastrado.")
         return
     else:
@@ -70,9 +74,8 @@ def editarMotorista():
             cpf = input("Insira um CPF com 11 dígitos do motorista que você deseja editar: ").strip()
             while not cpf.isdigit() or len(cpf) != 11:
                 cpf = input("Informação incorreta. Digite somente números ou um CPF válido (com 11 dígitos): ").strip()
-            cpf = int(cpf)
-            if cpf in banco_Motorista:     # Saber se o motorista existe ou não
-                for motorista in banco_Motorista.values():
+            if cpf in get_bm():     # Saber se o motorista existe ou não
+                for motorista in get_bm().values():
                     if cpf == motorista.get('CPF'):
                         print('=-'*15)
                         print(f"Nome: {motorista.get('nome')}\nCarteira de Habilitação: {motorista.get('habilitacao')}")
@@ -92,7 +95,8 @@ def editarMotorista():
                             while opcao not in "SN":
                                 opcao = str(input("Opção incorreta. Digite somente s - Sim ou n - Não: ")).strip().upper()
                             if opcao == "S":
-                                banco_Motorista[cpf] = motorista
+                                get_bm()[cpf] = motorista
+                                escrever()
                                 print("Motorista editado com sucesso.\n")
                             break
             else:
@@ -103,7 +107,8 @@ def editarMotorista():
 
 
 def removerMotorista():
-    if len(banco_Motorista) == 0:
+    ler()
+    if len(get_bm()) == 0:
         print("Ainda não existe nenhum motorista cadastrado.")
         return
     else:
@@ -113,9 +118,8 @@ def removerMotorista():
             cpf = input("Insira um CPF com 11 dígitos do motorista que você deseja remover: ").strip()
             while not cpf.isdigit() or len(cpf) != 11:
                 cpf = input("Informação incorreta. Digite somente números ou um CPF válido (com 11 dígitos): ").strip()
-            cpf = int(cpf)
-            if cpf in banco_Motorista:  # Saber se o motorista existe ou não
-                for motorista in banco_Motorista.values():
+            if cpf in get_bm():  # Saber se o motorista existe ou não
+                for motorista in get_bm().values():
                     if cpf == motorista.get('CPF'):
                         print('-=' * 25)
                         print(f'{"CPF":<18}{"Nome":10}{"Habilitação"}')
@@ -125,7 +129,8 @@ def removerMotorista():
                         while opcao not in "SN":
                             opcao = str(input("Opção incorreta. Digite somente s - Sim ou n - Não: ")).strip().upper()
                         if opcao == "S":
-                            del banco_Motorista[cpf]
+                            del get_bm()[cpf]
+                            escrever()
                             print("Motorista deletado com sucesso.\n")
                             break
                 break
@@ -134,7 +139,8 @@ def removerMotorista():
 
 
 def listarMotoristasCNH():
-    if len(banco_Motorista) == 0:
+    ler()
+    if len(get_bm()) == 0:
         print("Ainda não existe nenhum motorista cadastrado.")
         return
     else:
@@ -143,13 +149,13 @@ def listarMotoristasCNH():
         while habilitacao not in "ABab":
             habilitacao = str(input(f"Informação incorreta. Digite somente uma carteira A, B ou AB: ")).strip().upper()
         contCNH = 0
-        for motorista in banco_Motorista.values():
+        for motorista in get_bm().values():
             if motorista.get('habilitacao') == habilitacao:
                 contCNH += 1
         if contCNH != 0:
             print(f"=-=-Motoristas Com Carteira {habilitacao}=-=-")
             print(f'{"CPF":<18}{"Nome":10}{"Habilitação"}')
-            for motorista in banco_Motorista.values():
+            for motorista in get_bm().values():
                 if habilitacao == motorista.get("habilitacao"):
                     print(f"{motorista.get('CPF'):<18}{motorista.get('nome'):<10}{motorista.get('habilitacao')}")
             print("-=" * 25)
@@ -161,12 +167,13 @@ def listarMotoristasCNH():
 
 
 def listarMotoristas():
-    if len(banco_Motorista) == 0:
+    ler()
+    if len(get_bm()) == 0:
         print("Ainda não existe nenhum motorista cadastrado.")
         return
     else:
         print('-=-=-=-=-=Motoristas-=-=-=-=-=')
         print(f'{"CPF":<18}{"Nome":10}{"Habilitação"}')
-        for motorista in banco_Motorista.values():
+        for motorista in get_bm().values():
             print(f"{motorista.get('CPF'):<18}{motorista.get('nome'):<10}{motorista.get('habilitacao')}")
         print("-=" * 25)

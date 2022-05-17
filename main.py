@@ -1,6 +1,6 @@
 from menu import *
 from controladorMotorista import *
-from controladorVeiculo import *
+from bancoGeral import criar
 from controladorViagem import *
 
 
@@ -75,6 +75,9 @@ def mainViagem():
 
 
 def main():
+    criar()
+    get_bm()
+    get_bv()
     while True:
         opcaomenu = menuPrincipal()
         print()
