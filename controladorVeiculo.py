@@ -1,6 +1,5 @@
-from funcoes import *  # aqui ele já está importando o banco Geral porque no arquivo funções ele já está importando
-# e eu estou importando as funções.
-from bancoGeral import ler, escrever
+from funcoes import checagem, continuar
+from bancoGeral import ler, escrever, get_bv, get_bm
 
 # ========================================= Veículo ===================================================================
 
@@ -22,6 +21,7 @@ def cadastrarVeiculo():
             veiculo = {"placa": placa, "tipo": tipo, "motorista": None}
             get_bv()[placa] = veiculo
             escrever()
+            print("Veículo cadastrado com sucesso!")
         else:
             print("Este veículo já está cadastrado.")
         if not continuar():

@@ -1,6 +1,4 @@
 from bancoGeral import get_bm, get_bv
-from bancoGeral import *
-from controladorViagem import *
 
 # =-=-=-=-=-=-=-=-=-=-=-=-=-Funções Fundamentais -=-=-==-=-==-=--==-=-=-=-=-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -13,9 +11,9 @@ def checagem(item, codigo=0):  # 0 é motorista, 1 é veículo. Função de chec
             return False  # Se não existir ele retorna False
     elif codigo == 1:  # veículo
         if item in get_bv():  # Se o veículo já existir ele retorna True
-            return False
-        else:  # Se não existir ele retorna False
             return True
+        else:  # Se não existir ele retorna False
+            return False
 
 
 def continuar():  #Função para a opção de continuar

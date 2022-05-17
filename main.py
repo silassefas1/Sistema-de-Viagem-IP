@@ -1,7 +1,9 @@
 from menu import *
 from controladorMotorista import *
-from bancoGeral import criar
+from controladorVeiculo import *
 from controladorViagem import *
+from bancoGeral import criar
+
 
 
 def mainMotorista():
@@ -67,7 +69,7 @@ def mainViagem():
         elif opcaomenu == 6:
             todasAsViagens()
         elif opcaomenu == 7:
-            vigemPorPeriodo()
+            viagemPorPeriodo()
         elif opcaomenu == 8:
             break
         else:

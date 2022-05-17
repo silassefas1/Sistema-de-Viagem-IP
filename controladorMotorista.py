@@ -1,5 +1,5 @@
-from funcoes import *
-from bancoGeral import ler, escrever
+from funcoes import continuar, checagem
+from bancoGeral import ler, escrever, get_bm
 # aqui ele já está importando o banco Geral porque no arquivo funções ele já está importando
 # e eu estou importando as funções.
 # =================================================== Motorista =====================================================
