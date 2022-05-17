@@ -28,4 +28,3 @@ def continuar():  # Função para a opção de continuar
         else:  # se a opcao for N, ele retorna False
             return False
 
-

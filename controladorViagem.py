@@ -63,7 +63,7 @@ def criarViajem():
             print('Viajem iniciada.')
             status = True
             # alimentar dicionario===================================================================================
-            viagem = {'Veiculo': placa, 'Destino': rota, 'Status': status, 'Periodo': {inicio, fim}}
+            viagem = {'Veiculo': placa, 'Destino': rota, 'Status': status, 'inicio': inicio, 'fim': fim}
             get_bvia()[placa] = viagem
             escrever()
             print('Viajem cadastrada.')
