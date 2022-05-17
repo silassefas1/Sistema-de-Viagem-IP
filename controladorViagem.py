@@ -49,6 +49,7 @@ def criarViajem():
 
             # Data da viajem===================================================================================
             print('Cadastra datas da viajem')
+            global diaInicio, mesInicio
             diaInicio = int(input('Digite o dia do começo da viajem: '))
             dia(diaInicio)
             mesInicio = int(input('Digite o mes da viajem: '))
@@ -146,18 +147,31 @@ def todasAsViagens():
 
 
 def viagemPorPeriodo():
-    print(' Viajens por periodo.')
-    input('Periodo inicial')
-    input('Piriodo final')
+    print('Viajens por periodo.\n')
+    print('=-=-Periodo inicial=-=-')
+    di = int(input('Dia inicial: '))
+    mi = int(input('Mês inicial: '))
+    print()
+    print('=-=-Periodo final=-=-')
+    df = int(input("Dia final: "))
+    mf = int(input("Mês final: "))
 
 
-def dia(a):
+def dia(a, i=0):
+    if i == 1:
+        if a < diaInicio:
+            print("O dia do fim da viagem não pode ser menor que o dia de início.")
+            criarViajem()
     if 1 > a < 31:
         print('Valor incorreto.')
         criarViajem()
 
 
-def mes(b):
+def mes(b, i=0):
+    if i == 1:
+        if b < mesInicio:
+            print("O mês do fim da viagem não pode ser menor que o mês do início.")
     if 1 > b < 12:
         print('Valor incorreto')
         criarViajem()
+
