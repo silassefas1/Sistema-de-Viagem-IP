@@ -49,17 +49,16 @@ def criarViajem():
 
             # Data da viajem===================================================================================
             print('Cadastra datas da viajem')
-            inicio_Data = float(input('Digite a data de inicio: na forma DD.MM '))
+            inicio_Data = float(input('Digite a data de inicio: na forma DD.MM ')) #formatar para o tipo data
             fim_Data = float(input('Digite a data de fim: na forma DD.MM '))
             periodo = f"{inicio_Data} até {fim_Data}"
             # atribuir status===================================================================================
             print('Viajem iniciada.')
-            status = "True"
+            status = True
             # alimentar dicionario===================================================================================
-            viagem = {
-                placa: {'Veiculo': f"{placa}", 'Destino': f"{rota}", 'Status': f"{status}", 'Periodo':f"{inicio_Data} ate {fim_Data}"}}
+            viagem = {'Veiculo': f"{placa}", 'Destino': f"{rota}", 'Status': status, 'Periodo':f"{inicio_Data} ate {fim_Data}"}
             bdViajem[placa] = viagem
-
+            print(bdViajem)
             print('Viajem cadastrada.')
 
             # Nova Viajem===================================================================================
@@ -95,29 +94,32 @@ def viajemAtiva():
     input('Pressione enter para voltar ao menu. ')
 
 
-def veiculoEmViajem():
+def veiculoEmViajem(): # colocar aviso de sem veiculos em viajem
     print('Segue abaixo lista de veiculos em viajem: ')
-    for a in bdViajem.values():  # tentar colocar o tipo do veiculo junto
-        if a['Status']:
-            print(a['Veiculo'])
+    for b in bdViajem.values():  # tentar colocar o tipo do veiculo junto
+        if b['Status']:
+            print(b['Veiculo'])
     input('Pressione enter para voltar ao menu. ')
 
 
-def veiculoDisponivel():
-    print('Segue abaixo lista de veiculos dispobiveis para Viajem: ')
-    for a in bdViajem.values():  # tentar colocar o tipo do veiculo junto
-        if not a['Status']:
-            print(a['Veiculo'])
-    input('Pressione enter para voltar ao menu. ')
+def veiculoDisponivel(): # colocar aviso de sem veiculos disponiveis
+    print('Abaixo lista de veiculos disponiveis para viajem. ')
+    for a in banco_Veiculo.values():
+        b = a['placa']
+        if not b in bdViajem.keys():
+            print(banco_Veiculo.get('tipo'), b)
+
+    input()
 
 
-def todasAsViagens():
+def todasAsViagens(): # mostar todas as viajens ================================================================
     for a in bdViajem.items():
         print(a)
     input('Pressione enter para voltar ao menu. ')
 
 
 def vigemPorPeriodo():
+    print(' Viajens por periodo.')
     periodoInicio = float(input('inicio: '))
     periodoFim = float(input('fim: '))
     for a in bdViajem.values():
