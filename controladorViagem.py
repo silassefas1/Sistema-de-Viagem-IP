@@ -1,13 +1,17 @@
-from funcoes import *  # aqui ele já está importando o banco Geral porque no arquivo funções ele já está importando
+ # aqui ele já está importando o banco Geral porque no arquivo funções ele já está importando
 # e eu estou importando as funções.
 from controladorVeiculo import *
 from bancoGeral import *
+from funcoes import *
+
+
 
 
 # ========================================= Viajem ===================================================================
 
 placa = None
 status = None
+
 
 
 def criarViajem():
@@ -49,14 +53,21 @@ def criarViajem():
 
             # Data da viajem===================================================================================
             print('Cadastra datas da viajem')
-            inicio_Data = float(input('Digite a data de inicio: na forma DD.MM ')) #formatar para o tipo data
-            fim_Data = float(input('Digite a data de fim: na forma DD.MM '))
-            periodo = f"{inicio_Data} até {fim_Data}"
+            diaInicio = int(input('Digite o dia do começõ da viajem: '))
+            dia(diaInicio)
+            mesInicio = int(input('Digite o mes da viajem: '))
+            mes(mesInicio)
+            diaFim = int(input('Digite o dia do fim da viajem: '))
+            dia(diaFim)
+            mesFim =int(input('Digite o mes da viajem: '))
+            mes(mesFim)
+            inicio = diaInicio, mesInicio
+            fim = diaFim, mesFim
             # atribuir status===================================================================================
             print('Viajem iniciada.')
             status = True
             # alimentar dicionario===================================================================================
-            viagem = {'Veiculo': f"{placa}", 'Destino': f"{rota}", 'Status': status, 'Periodo':f"{inicio_Data} ate {fim_Data}"}
+            viagem = {'Veiculo': f"{placa}", 'Destino': f"{rota}", 'Status': status, 'Periodo': {'inicio':{inicio}, 'fim':{fim}}}
             bdViajem[placa] = viagem
             print(bdViajem)
             print('Viajem cadastrada.')
@@ -120,8 +131,21 @@ def todasAsViagens(): # mostar todas as viajens ================================
 
 def vigemPorPeriodo():
     print(' Viajens por periodo.')
-    periodoInicio = float(input('inicio: '))
-    periodoFim = float(input('fim: '))
-    for a in bdViajem.values():
-        if a in bdViajem['Periodo'] >= periodoInicio and bdViajem['Periodo'] <= periodoFim:
-            print(a)
+    input('Periodo inicial')
+    input('Piriodo final')
+
+
+
+
+
+
+def dia(a):
+    if 1 > a < 31:
+        print('Valor incorreto.')
+        criarViajem()
+
+
+def mes(b):
+    if 1 > b < 12:
+        print('Valor incorreto')
+        criarViajem()

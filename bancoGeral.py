@@ -59,5 +59,5 @@ banco_Motorista = {44555888990: {"CPF": 44555888990, "nome": "João", "habilitac
 22366895109: {"CPF": 22366895109, "nome": "Paulo", "habilitacao": "B"}}"""
 banco_Veiculo = {'2HBR220': {'placa': "2HBR220", 'tipo': "Carro", "motorista": 'João'},
                  "2HBTR78": {'placa': "2HBTR78", "tipo": "Moto", "motorista": None}}
-bdViajem = {'2HBTR78': {'Veiculo': '2HBTR78', 'Destino': 'Recife', 'Status': True, 'Periodo': '15.06 ate 17.06'}}
+bdViajem = {'2HBR220': {'Veiculo': '2HBR220', 'Destino': 'Serra', 'Status': True, 'Periodo': {'inicio': {(10, 5)}, 'fim': {(20, 6)}}}}
 
