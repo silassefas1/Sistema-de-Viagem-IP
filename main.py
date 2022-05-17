@@ -80,6 +80,7 @@ def main():
     criar()
     get_bm()
     get_bv()
+    get_bvia()
     while True:
         opcaomenu = menuPrincipal()
         print()

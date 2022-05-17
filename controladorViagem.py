@@ -1,11 +1,5 @@
- # aqui ele já está importando o banco Geral porque no arquivo funções ele já está importando
-# e eu estou importando as funções.
-from controladorVeiculo import *
-from bancoGeral import *
-from funcoes import *
-
-
-
+from controladorVeiculo import cadastrarVeiculo
+from bancoGeral import get_bv, get_bvia, ler, escrever
 
 # ========================================= Viajem ===================================================================
 
@@ -15,16 +9,18 @@ status = None
 
 
 def criarViajem():
+    ler()
     while True:  # cadastro Veiculo===================================================================================
         print('Cadastro Viajem')
-        cont = len(banco_Veiculo)
-        for a in banco_Veiculo and bdViajem:
-            cont -= 1
+        cont = len(get_bv())
+        for veiculo in get_bvia():
+            if veiculo in get_bv():
+                cont -= 1
         if cont == 0:
-            print('Não ha veiculos disponiveis.')
+            print('Não ha veiculos disponiveis ou todos os veículos já estão em viagem.')
             opcao = int(input('Deseja cadastrar um novo veiculo?\n'
                               '1 - Sim\n'
-                              '2 - Não\n '))
+                              '2 - Não\n'))
             if opcao == 1:
                 cadastrarVeiculo()
             else:
@@ -33,15 +29,15 @@ def criarViajem():
         else:
             # mostrar todos os veiculos do banco==========================================================================
             print('Selecione um veiculo para a viajem:')
-            for veiculo in banco_Veiculo:
-                if not veiculo in bdViajem:
+            for veiculo in get_bv():
+                if not veiculo in get_bvia():
                     print(veiculo)
 
             selecao_Veiculo = input('Insira a placa do veiculo para a viajem: ').upper()
             placa = selecao_Veiculo
-            if not selecao_Veiculo in banco_Veiculo:
+            if not selecao_Veiculo in get_bv():
                 print('Veiculo não cadastrado.')
-                novamente = int(input('1 Cadastra um veiculo \n '
+                novamente = int(input('1 Cadastra um veiculo \n'
                                       '2 Tentar novamente.'))
                 if novamente == 1:
                     cadastrarVeiculo()
@@ -49,11 +45,11 @@ def criarViajem():
                     criarViajem()
             # cadastro rota===================================================================================
             print('Cadastro de Rota')
-            rota = str(input('Digite o destino: '))
+            rota = str(input('Digite o destino: ')).title()
 
             # Data da viajem===================================================================================
             print('Cadastra datas da viajem')
-            diaInicio = int(input('Digite o dia do começõ da viajem: '))
+            diaInicio = int(input('Digite o dia do começo da viajem: '))
             dia(diaInicio)
             mesInicio = int(input('Digite o mes da viajem: '))
             mes(mesInicio)
@@ -67,9 +63,9 @@ def criarViajem():
             print('Viajem iniciada.')
             status = True
             # alimentar dicionario===================================================================================
-            viagem = {'Veiculo': f"{placa}", 'Destino': f"{rota}", 'Status': status, 'Periodo': {'inicio':{inicio}, 'fim':{fim}}}
-            bdViajem[placa] = viagem
-            print(bdViajem)
+            viagem = {'Veiculo': placa, 'Destino': rota, 'Status': status, 'Periodo': {inicio, fim}}
+            get_bvia()[placa] = viagem
+            escrever()
             print('Viajem cadastrada.')
 
             # Nova Viajem===================================================================================
@@ -86,57 +82,73 @@ def criarViajem():
 
 
 def fimViajem():
+    ler()
     print('Qual Viajem você deseja finalizar: ')
-    for a in bdViajem:
-        print(a)
-    placa = input('Digite a placa do veiculo em viajem: ')
-    for a in bdViajem.values():
-        if placa == a['Veiculo']:
+    for a, b in get_bvia().items():
+        if b.get('Status'):
+            print(a)
+    placa = input('Digite a placa do veiculo em viajem: ').upper()
+    cadastrado = False
+    for a in get_bvia().values():
+        if placa == a.get("Veiculo"):
+            cadastrado = True
             a['Status'] = False
-    print('Viajem Finalizada com sucesso.')
-    input('Presione enter para voltar ao menu.')
+            escrever()
+    if cadastrado:
+        print('Viajem Finalizada com sucesso.')
+        input('Presione enter para voltar ao menu.')
+    else:
+        print("Esse veículo não existe ou não está cadastrado ainda.\n")
 
 
 def viajemAtiva():
-    print('Segue abaixo lista de viajens ativas: \n')
-    for a in bdViajem.values():
+    ler()
+    counter = 0
+    for a in get_bvia().values():
         if a['Status']:
-            print(a)
+            counter += 1
+    if counter != 0:
+        print('Segue abaixo lista de viajens ativas: \n')
+        print(f"{'Veículo':<16} {'Destino':<18} {'Status':<14} {'Período'}")
+        for a in get_bvia().values():
+            if a['Status']:
+                print(f"{a['Veiculo']:<16} {a['Destino']:<18} {'Ativo':<14} {a['Periodo']}")
+        print()
+    else:
+        print("Não existem viagens ativas nesse momento.")
     input('Pressione enter para voltar ao menu. ')
 
 
-def veiculoEmViajem(): # colocar aviso de sem veiculos em viajem
-    print('Segue abaixo lista de veiculos em viajem: ')
-    for b in bdViajem.values():  # tentar colocar o tipo do veiculo junto
-        if b['Status']:
-            print(b['Veiculo'])
+
+def veiculoEmViajem():
+    ler()
+    print('Segue abaixo lista de veiculos em viajem:')
+    for a in get_bvia().values():  # tentar colocar o tipo do veiculo junto
+        if a['Status']:
+            print(a['Veiculo'])
     input('Pressione enter para voltar ao menu. ')
 
 
-def veiculoDisponivel(): # colocar aviso de sem veiculos disponiveis
-    print('Abaixo lista de veiculos disponiveis para viajem. ')
-    for a in banco_Veiculo.values():
-        b = a['placa']
-        if not b in bdViajem.keys():
-            print(banco_Veiculo.get('tipo'), b)
+def veiculoDisponivel():
+    ler()
+    print('Segue abaixo lista de veiculos dispobiveis para Viajem: ')
+    for a in get_bvia().values():  # tentar colocar o tipo do veiculo junto
+        if not a['Status']:
+            print(a['Veiculo'])
+    input('Pressione enter para voltar ao menu. ')
 
-    input()
 
-
-def todasAsViagens(): # mostar todas as viajens ================================================================
-    for a in bdViajem.items():
+def todasAsViagens():
+    ler()
+    for a in get_bvia().items():
         print(a)
     input('Pressione enter para voltar ao menu. ')
 
 
-def vigemPorPeriodo():
+def viagemPorPeriodo():
     print(' Viajens por periodo.')
     input('Periodo inicial')
     input('Piriodo final')
-
-
-
-
 
 
 def dia(a):
