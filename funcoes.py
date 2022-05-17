@@ -1,4 +1,6 @@
 from bancoGeral import get_bm, get_bv
+from bancoGeral import *
+from controladorViagem import *
 
 # =-=-=-=-=-=-=-=-=-=-=-=-=-Funções Fundamentais -=-=-==-=-==-=--==-=-=-=-=-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -16,8 +18,6 @@ def checagem(item, codigo=0):  # 0 é motorista, 1 é veículo. Função de chec
             return True
 
 
-
-
 def continuar():  #Função para a opção de continuar
     while True:
         opcao = str(input("Deseja continuar [S/N]? ")).strip().upper()
@@ -28,5 +28,3 @@ def continuar():  #Função para a opção de continuar
             return True  # se a opcao for S, ele retorna True
         else:  # se a opcao for N, ele retorna False
             return False
-
-

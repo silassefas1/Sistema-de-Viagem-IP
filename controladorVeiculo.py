@@ -15,7 +15,7 @@ def cadastrarVeiculo():
             print("informação incorreta.")
             placa = str(input("Insira a placa do seu veículo com 7 caracteres(ex: 2H6BR22) "
                               "e somente letras e números: ")).strip().upper()
-        if checagem(placa, 1):  # coloquei if not. porque ele só vai continuar se ele não existir (Que é False)
+        if not checagem(placa, 1):  # coloquei if not. porque ele só vai continuar se ele não existir (Que é False)
             tipo = str(input("Insira o tipo do seu veículo (moto ou carro): ")).strip().title()
             while tipo != "Moto" and tipo != "Carro":
                 tipo = str(input("Infomação incorreta. Digite somente moto ou carro: ")).strip().title()

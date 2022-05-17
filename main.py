@@ -55,19 +55,19 @@ def mainViagem():
         opcaomenu = menuViagem()
         print()
         if opcaomenu == 1:
-            cadastro_Viajem()
+            criarViajem()
         elif opcaomenu == 2:
-            pass
+            fimViajem()
         elif opcaomenu == 3:
-            pass
+            viajemAtiva()
         elif opcaomenu == 4:
-            pass
+            veiculoEmViajem()
         elif opcaomenu == 5:
-            pass
+            veiculoDisponivel()
         elif opcaomenu == 6:
-            pass
+            todasAsViagens()
         elif opcaomenu == 7:
-            pass
+            vigemPorPeriodo()
         elif opcaomenu == 8:
             break
         else:
